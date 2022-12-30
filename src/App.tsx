@@ -3,14 +3,13 @@ import {
   Container,
   CssBaseline,
   ThemeProvider,
-  Typography,
 } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import { useState } from 'react';
 import { Route, Switch } from 'wouter';
 
 import { TopBar } from './components/components';
-import { HomePage } from './pages/pages';
+import { HomePage, QuestPage } from './pages/pages';
 
 const darkTheme = createTheme({
   palette: {
@@ -32,7 +31,7 @@ const App = () => {
             </Route>
 
             <Route path="/quests">
-              <Typography variant="h6">Quests</Typography>
+              <QuestPage />
             </Route>
           </Switch>
         </Container>
