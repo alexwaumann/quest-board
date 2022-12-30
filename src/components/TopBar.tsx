@@ -16,6 +16,7 @@ const TopBar = () => {
   const [route, navigate] = useLocation();
 
   const handleNavButtonClicked = (event: React.MouseEvent<HTMLElement, MouseEvent>, newRoute: any) => {
+    if(!newRoute) return;
     navigate(newRoute);
   };
 
