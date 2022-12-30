@@ -6,6 +6,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import { Stadium } from '@mui/icons-material';
 import { useLocation } from 'wouter';
 
 import { useDataStore } from '../hooks/useDataStore';
@@ -22,7 +23,10 @@ const TopBar = () => {
     <AppBar position="relative" color="transparent" elevation={0}>
       <Toolbar>
         <Stack direction="row" alignItems="center" justifyContent="space-between" flexGrow={1}>
-          <Typography variant="h6">Quest Board</Typography>
+          <Stack direction="row" alignItems="center" spacing={3}>
+            <Stadium color="info" />
+            <Typography variant="h6">The Colosseum</Typography>
+          </Stack>
           <ToggleButtonGroup
             value={route}
             exclusive
@@ -30,7 +34,7 @@ const TopBar = () => {
             onChange={handleNavButtonClicked}
           >
             <ToggleButton value="/" sx={{ p: 1, pl: 2, pr: 2 }}>Arena</ToggleButton>
-            <ToggleButton value="/quests" sx={{ p: 1, pl: 2, pr: 2 }}>Quests</ToggleButton>
+            <ToggleButton value="/challenges" sx={{ p: 1, pl: 2, pr: 2 }}>Challenges</ToggleButton>
           </ToggleButtonGroup>
           <Typography variant="body2">{displayName}</Typography>
         </Stack>

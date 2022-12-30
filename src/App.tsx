@@ -29,7 +29,7 @@ const App = () => {
               <HomePage />
             </Route>
 
-            <Route path="/quests">
+            <Route path="/challenges">
               <QuestPage />
             </Route>
           </Switch>

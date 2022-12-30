@@ -1,7 +1,7 @@
 import create from 'zustand';
 import { getLocalStorage, setLocalStorage } from '../utils/localstorage';
 
-interface Goal {
+interface Challenge {
   uid: string
   title: string
   startDate: number
@@ -26,7 +26,7 @@ interface Objective {
   startDate: number
   endDate: number
   dailies: Daily[]
-  goalUid: string
+  challengeUid: string
 };
 
 interface Daily {
@@ -36,25 +36,25 @@ interface Daily {
 
 interface DataStore {
   displayName: string
-  goals: Goal[]
+  challenges: Challenge[]
   objectives: Objective[]
 
   setDisplayName: (newDisplayName: string) => void
 
-  addGoal: (goal: Goal) => void
-  addMilestone: (goalUid: string, milestone: Milestone) => void
+  addChallenge: (challenge: Challenge) => void
+  addMilestone: (challengeUid: string, milestone: Milestone) => void
   addObjective: (objective: Objective) => void
 
-  completeMilestone: (goalUid: string, milestoneUid: string) => void
+  completeMilestone: (challengeUid: string, milestoneUid: string) => void
   completeDaily: (objectiveUid: string, daily: Daily) => void
 
-  completeGoal: (goalUid: string) => void
+  completeChallenge: (challengeUid: string) => void
   completeObjective: (objectiveUid: string) => void
 };
 
 export const useDataStore = create<DataStore>((set, get) => ({
   displayName: getLocalStorage('displayName', 'Adventurer'),
-  goals: getLocalStorage('goals', []),
+  challenges: getLocalStorage('challenges', []),
   objectives: getLocalStorage('objectives', []),
 
   setDisplayName: (newDisplayName) => {
@@ -62,24 +62,24 @@ export const useDataStore = create<DataStore>((set, get) => ({
     setLocalStorage('displayName', newDisplayName);
   },
 
-  addGoal: (goal) => {
-    const newGoals = [...get().goals, goal];
+  addChallenge: (challenge) => {
+    const newChallenges = [...get().challenges, challenge];
 
-    set({ goals: newGoals });
-    setLocalStorage('goals', newGoals);
+    set({ challenges: newChallenges });
+    setLocalStorage('challenges', newChallenges);
   },
 
-  addMilestone: (goalUid, milestone) => {
-    const newGoals = get().goals.map((goal) => {
-      if(goal.uid === goalUid) {
-        goal.milestones.push(milestone);
+  addMilestone: (challengeUid, milestone) => {
+    const newChallenges = get().challenges.map((challenge) => {
+      if(challenge.uid === challengeUid) {
+        challenge.milestones.push(milestone);
       }
 
-      return goal;
+      return challenge;
     });
 
-    set({ goals: newGoals })
-    setLocalStorage('goals', newGoals);
+    set({ challenges: newChallenges })
+    setLocalStorage('challenges', newChallenges);
   },
 
   addObjective: (objective) => {
@@ -89,10 +89,10 @@ export const useDataStore = create<DataStore>((set, get) => ({
     setLocalStorage('objectives', newObjectives);
   },
 
-  completeMilestone: (goalUid, milestoneUid) => {
-    const newGoals = get().goals.map((goal) => {
-      if(goal.uid === goalUid) {
-        goal.milestones = goal.milestones.map((milestone) => {
+  completeMilestone: (challengeUid, milestoneUid) => {
+    const newChallenges = get().challenges.map((challenge) => {
+      if(challenge.uid === challengeUid) {
+        challenge.milestones = challenge.milestones.map((milestone) => {
           if(milestone.uid === milestoneUid) {
             milestone.completed = true;
             milestone.date = TODAY();
@@ -102,11 +102,11 @@ export const useDataStore = create<DataStore>((set, get) => ({
         });
       }
 
-      return goal;
+      return challenge;
     });
 
-    set({ goals: newGoals });
-    setLocalStorage('goals', newGoals);
+    set({ challenges: newChallenges });
+    setLocalStorage('challenges', newChallenges);
   },
 
   completeDaily: (objectiveUid, daily) => {
@@ -125,8 +125,8 @@ export const useDataStore = create<DataStore>((set, get) => ({
     setLocalStorage('objectives', newObjectives);
   },
 
-  completeGoal: (goalUid: string) => {
-    console.log('TODO: implement DataStore.completeGoal');
+  completeChallenge: (challengeUid: string) => {
+    console.log('TODO: implement DataStore.completeChallenge');
   },
 
   completeObjective: (objectiveUid) => {
