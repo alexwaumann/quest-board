@@ -8,7 +8,7 @@ import { createTheme } from '@mui/material/styles';
 import { Route, Switch } from 'wouter';
 
 import { TopBar } from './components/components';
-import { HomePage, QuestPage } from './pages/pages';
+import { HomePage, ChallengePage } from './pages/pages';
 
 const darkTheme = createTheme({
   palette: {
@@ -30,7 +30,7 @@ const App = () => {
             </Route>
 
             <Route path="/challenges">
-              <QuestPage />
+              <ChallengePage />
             </Route>
           </Switch>
         </Container>

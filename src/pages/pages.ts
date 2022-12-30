@@ -1,5 +1,5 @@
 import HomePage_ from './HomePage';
-import QuestPage_ from './QuestPage';
+import ChallengePage_ from './ChallengePage';
 
 export const HomePage = HomePage_;
-export const QuestPage = QuestPage_;
+export const ChallengePage = ChallengePage_;
