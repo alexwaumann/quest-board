@@ -5,7 +5,7 @@ interface Challenge {
   uid: string
   title: string
   startDate: number
-  endDate: number
+  endDate?: number
   milestones: Milestone[]
 };
 
@@ -24,7 +24,7 @@ interface Objective {
   targetUnits: number
   active: boolean
   startDate: number
-  endDate: number
+  endDate?: number
   dailies: Daily[]
   challengeUid: string
 };
