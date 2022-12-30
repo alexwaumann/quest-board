@@ -5,7 +5,6 @@ import {
   ThemeProvider,
 } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
-import { useState } from 'react';
 import { Route, Switch } from 'wouter';
 
 import { TopBar } from './components/components';
