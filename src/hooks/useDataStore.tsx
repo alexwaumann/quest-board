@@ -35,8 +35,11 @@ interface Daily {
 };
 
 interface DataStore {
+  displayName: string
   goals: Goal[]
   objectives: Objective[]
+
+  setDisplayName: (newDisplayName: string) => void
 
   addGoal: (goal: Goal) => void
   addMilestone: (goalUid: string, milestone: Milestone) => void
@@ -50,8 +53,14 @@ interface DataStore {
 };
 
 export const useDataStore = create<DataStore>((set, get) => ({
+  displayName: getLocalStorage('displayName', 'Adventurer'),
   goals: getLocalStorage('goals', []),
   objectives: getLocalStorage('objectives', []),
+
+  setDisplayName: (newDisplayName) => {
+    set({ displayName: newDisplayName });
+    setLocalStorage('displayName', newDisplayName);
+  },
 
   addGoal: (goal) => {
     const newGoals = [...get().goals, goal];

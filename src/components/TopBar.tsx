@@ -8,7 +8,10 @@ import {
 } from '@mui/material';
 import { useLocation } from 'wouter';
 
+import { useDataStore } from '../hooks/useDataStore';
+
 const TopBar = () => {
+  const displayName = useDataStore((state) => state.displayName);
   const [route, navigate] = useLocation();
 
   const handleNavButtonClicked = (event: React.MouseEvent<HTMLElement, MouseEvent>, newRoute: any) => {
@@ -18,8 +21,8 @@ const TopBar = () => {
   return (
     <AppBar position="relative" color="transparent" elevation={0}>
       <Toolbar>
-        <Typography variant="h6" flexGrow={1}>Quest Board</Typography>
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row" alignItems="center" justifyContent="space-between" flexGrow={1}>
+          <Typography variant="h6">Quest Board</Typography>
           <ToggleButtonGroup
             value={route}
             exclusive
@@ -29,6 +32,7 @@ const TopBar = () => {
             <ToggleButton value="/" sx={{ p: 1, pl: 2, pr: 2 }}>Arena</ToggleButton>
             <ToggleButton value="/quests" sx={{ p: 1, pl: 2, pr: 2 }}>Quests</ToggleButton>
           </ToggleButtonGroup>
+          <Typography variant="body2">{displayName}</Typography>
         </Stack>
       </Toolbar>
     </AppBar>
