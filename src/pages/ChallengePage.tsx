@@ -48,7 +48,7 @@ const ChallengePage = () => {
   };
 
   return (
-    <Grid container spacing={4}>
+    <Grid container spacing={2}>
       <Grid item xs={12}>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <Typography variant="h5">Active Challenges</Typography>
@@ -88,43 +88,87 @@ const ChallengePage = () => {
         </Grid>
       }
 
-      {challenges.map((challenge) => {
-        const filteredObjectives = objectives.filter((objective) => objective.challengeUid === challenge.uid);
-        return (
-          <Grid key={challenge.uid} item xs={12} sm={12} md={6} lg={4}>
-            <Card>
-              <CardContent>
-                <Stack direction="row" alignItems="center" justifyContent="space-between">
-                  <Typography variant="h5">{challenge.title}</Typography>
-                  <IconButton>
-                    <MoreHoriz />
-                  </IconButton>
-                </Stack>
-                <Box sx={{ m: 2 }} />
+      <Grid container item spacing={2} xs={12} md={6}>
+        {challenges.map((challenge, index) => {
+          if(index >= challenges.length / 2) return null;
+          const filteredObjectives = objectives.filter((objective) => objective.challengeUid === challenge.uid);
+          return (
+            <Grid key={challenge.uid} item xs={12}>
+              <Card>
+                <CardContent>
+                  <Stack direction="row" alignItems="center" justifyContent="space-between">
+                    <Typography variant="h5">{challenge.title}</Typography>
+                    <IconButton>
+                      <MoreHoriz />
+                    </IconButton>
+                  </Stack>
+                  <Box sx={{ m: 2 }} />
 
-                {challenge.milestones.length > 0 &&
-                  <>
-                    <Typography variant="h6">Milestones</Typography>
-                    <Box sx={{ m: 2 }} />
-                  </>
-                }
+                  {challenge.milestones.length > 0 &&
+                    <>
+                      <Typography variant="h6">Milestones</Typography>
+                      <Box sx={{ m: 2 }} />
+                    </>
+                  }
 
-                {filteredObjectives.length > 0 &&
-                  <>
-                    <Typography variant="subtitle1">Dailies</Typography>
-                    <Box sx={{ m: 2 }} />
-                  </>
-                }
+                  {filteredObjectives.length > 0 &&
+                    <>
+                      <Typography variant="subtitle1">Dailies</Typography>
+                      <Box sx={{ m: 2 }} />
+                    </>
+                  }
 
-                <Stack direction="row" spacing={2}>
-                  <Button color="info" fullWidth>Add Milestone</Button>
-                  <Button color="info" fullWidth>Add Daily</Button>
-                </Stack>
-              </CardContent>
-            </Card>
-          </Grid>
-        );
-      })}
+                  <Stack direction="row" spacing={2}>
+                    <Button color="info" fullWidth>Add Milestone</Button>
+                    <Button color="info" fullWidth>Add Daily</Button>
+                  </Stack>
+                </CardContent>
+              </Card>
+            </Grid>
+          );
+        })}
+      </Grid>
+
+      <Grid container item spacing={2} xs={12} md={6}>
+        {challenges.map((challenge, index) => {
+          if(index < challenges.length / 2) return null;
+          const filteredObjectives = objectives.filter((objective) => objective.challengeUid === challenge.uid);
+          return (
+            <Grid key={challenge.uid} item xs={12}>
+              <Card>
+                <CardContent>
+                  <Stack direction="row" alignItems="center" justifyContent="space-between">
+                    <Typography variant="h5">{challenge.title}</Typography>
+                    <IconButton>
+                      <MoreHoriz />
+                    </IconButton>
+                  </Stack>
+                  <Box sx={{ m: 2 }} />
+
+                  {challenge.milestones.length > 0 &&
+                    <>
+                      <Typography variant="h6">Milestones</Typography>
+                      <Box sx={{ m: 2 }} />
+                    </>
+                  }
+
+                  {filteredObjectives.length > 0 &&
+                    <>
+                      <Typography variant="subtitle1">Dailies</Typography>
+                      <Box sx={{ m: 2 }} />
+                    </>
+                  }
+
+                  <Stack direction="row" spacing={2}>
+                    <Button color="info" fullWidth>Add Milestone</Button>
+                    <Button color="info" fullWidth>Add Daily</Button>
+                  </Stack>
+                </CardContent>
+              </Card>
+            </Grid>
+          );
+        })}
+      </Grid>
     </Grid>
   );
 };

@@ -23,7 +23,7 @@ const App = () => {
       <CssBaseline enableColorScheme />
       <TopBar />
       <Box sx={{ p: 4 }}>
-        <Container maxWidth="lg">
+        <Container maxWidth="md">
           <Switch>
             <Route path="/">
               <HomePage />
