@@ -15,7 +15,10 @@ import {
   Clear,
 } from '@mui/icons-material'
 
+import { useDataStore, TODAY } from '../hooks/useDataStore';
+
 const HomePage = () => {
+  const objectives = useDataStore((state) => state.objectives);
 
   return (
     <Grid container spacing={4}>
@@ -28,21 +31,17 @@ const HomePage = () => {
           <Card>
             <CardContent>
               <Stack direction="column" spacing={2}>
-                <Stack direction="row" justifyContent="space-between">
-                  <Stack direction="column">
-                    <Typography variant="h6">Objective title</Typography>
-                    <Typography variant="body2">Objective description</Typography>
-                  </Stack>
-                  <Checkbox />
-                </Stack>
-
-                <Stack direction="row" justifyContent="space-between">
-                  <Stack direction="column">
-                    <Typography variant="h6">Objective title</Typography>
-                    <Typography variant="body2">Objective description</Typography>
-                  </Stack>
-                  <Checkbox />
-                </Stack>
+                {objectives.map((objective) => {
+                  const completedToday = objective.dailies.find((daily) => daily.date === TODAY()) !== undefined;
+                  return (
+                    <Stack key={objective.uid} direction="row" alignItems="center" justifyContent="space-between">
+                      <Stack direction="column">
+                        <Typography variant="body1">{objective.title}</Typography>
+                      </Stack>
+                      <Checkbox checked={completedToday} />
+                    </Stack>
+                  );
+                })}
               </Stack>
             </CardContent>
           </Card>
