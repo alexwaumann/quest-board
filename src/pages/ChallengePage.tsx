@@ -14,7 +14,7 @@ const ChallengePage = () => {
   const challenges = useDataStore((state) => state.challenges);
   const objectives = useDataStore((state) => state.objectives);
 
-  const [openCreateChallengeCard, setOpenCreateChallengeCard] = useState<boolean>(false);
+  const [openCreateChallengeDialog, setOpenCreateChallengeDialog] = useState<boolean>(false);
 
   return (
     <Grid container spacing={2}>
@@ -23,8 +23,8 @@ const ChallengePage = () => {
           <Typography variant="h5">Active Challenges</Typography>
           <ToggleButton
             value="addChallenge"
-            selected={openCreateChallengeCard}
-            onClick={() => setOpenCreateChallengeCard(true)}
+            selected={openCreateChallengeDialog}
+            onClick={() => setOpenCreateChallengeDialog(true)}
           >
             <Add sx={{ width: 28, height: 28 }} />
           </ToggleButton>
@@ -59,7 +59,7 @@ const ChallengePage = () => {
         })}
       </Grid>
 
-      <CreateChallengeDialog open={openCreateChallengeCard} closeFn={() => setOpenCreateChallengeCard(false)} />
+      <CreateChallengeDialog open={openCreateChallengeDialog} closeFn={() => setOpenCreateChallengeDialog(false)} />
     </Grid>
   );
 };
