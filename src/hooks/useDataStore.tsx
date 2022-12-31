@@ -1,7 +1,7 @@
 import create from 'zustand';
 import { getLocalStorage, setLocalStorage } from '../utils/localstorage';
 
-interface Challenge {
+export interface Challenge {
   uid: string
   title: string
   startDate: number
@@ -16,7 +16,7 @@ interface Milestone {
   date: number
 };
 
-interface Objective {
+export interface Objective {
   uid: string
   title: string
   action: string
