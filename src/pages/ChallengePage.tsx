@@ -7,14 +7,23 @@ import {
 import { Add } from '@mui/icons-material';
 import { useState } from 'react';
 
-import { CreateChallengeDialog, ChallangeCard } from '../components/components';
-import { useDataStore } from '../hooks/useDataStore';
+import { CreateChallengeDialog, CreateDailyDialog, ChallangeCard } from '../components/components';
+import { Challenge, useDataStore } from '../hooks/useDataStore';
 
 const ChallengePage = () => {
   const challenges = useDataStore((state) => state.challenges);
   const objectives = useDataStore((state) => state.objectives);
 
   const [openCreateChallengeDialog, setOpenCreateChallengeDialog] = useState<boolean>(false);
+  const [openCreateDailyDialog, setOpenCreateDailyDialog] = useState<boolean>(false);
+  const [openCreateMilestoneDialog, setOpenCreateMilestoneDialog] = useState<boolean>(false);
+
+  const [selectedChallenge, setSelectedChallenge] = useState<Challenge>({
+    uid: '0x0',
+    title: 'New Challenge',
+    startDate: 0,
+    milestones: [],
+  });
 
   return (
     <Container maxWidth="sm">
@@ -37,6 +46,14 @@ const ChallengePage = () => {
                 key={challenge.uid}
                 challenge={challenge}
                 objectives={objectives.filter((objective) => objective.challengeUid === challenge.uid)}
+                openCreateDailyDialogFn={() => {
+                  setSelectedChallenge(challenge);
+                  setOpenCreateDailyDialog(true)
+                }}
+                openCreateMilestoneDialogFn={() => {
+                  setSelectedChallenge(challenge);
+                  setOpenCreateMilestoneDialog(true);
+                }}
               />
             );
           })}
@@ -44,6 +61,11 @@ const ChallengePage = () => {
       </Stack>
 
       <CreateChallengeDialog open={openCreateChallengeDialog} closeFn={() => setOpenCreateChallengeDialog(false)} />
+      <CreateDailyDialog
+        open={openCreateDailyDialog}
+        closeFn={() => setOpenCreateDailyDialog(false)}
+        challenge={selectedChallenge}
+      />
     </Container>
   );
 };

@@ -14,9 +14,11 @@ import { Challenge, Objective } from '../hooks/useDataStore';
 interface ChallengeCardProps {
   challenge: Challenge
   objectives: Objective[]
+  openCreateDailyDialogFn: () => void
+  openCreateMilestoneDialogFn: () => void
 };
 
-const ChallengeCard = ({challenge, objectives}: ChallengeCardProps) => {
+const ChallengeCard = ({challenge, objectives, openCreateDailyDialogFn, openCreateMilestoneDialogFn}: ChallengeCardProps) => {
 
   return (
     <Card>
@@ -44,8 +46,8 @@ const ChallengeCard = ({challenge, objectives}: ChallengeCardProps) => {
         }
 
         <Stack direction="row" spacing={2}>
-          <Button color="info" fullWidth>Add Milestone</Button>
-          <Button color="info" fullWidth>Add Daily</Button>
+          <Button color="info" onClick={() => openCreateMilestoneDialogFn()} fullWidth>Add Milestone</Button>
+          <Button color="info" onClick={() => openCreateDailyDialogFn()} fullWidth>Add Daily</Button>
         </Stack>
       </CardContent>
     </Card>
