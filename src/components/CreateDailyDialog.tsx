@@ -27,13 +27,10 @@ const CreateDailyDialog = ({open, closeFn, challenge}: CreateChallengeCardProps)
   const [unitsInput, setUnitsInput] = useState<string>('');
   const [targetUnitsInput, setTargetUnitsInput] = useState<string>('');
 
-  const handleTargetUnitsInputChanged = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    const newValue = event.target.value ? event.target.value : '';
-    setActionInput(newValue);
-  };
-
   const cleanup = (): void => {
     setActionInput('');
+    setUnitsInput('');
+    setTargetUnitsInput('');
   };
 
   const handleCancel = (): void => {
