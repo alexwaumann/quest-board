@@ -21,39 +21,39 @@ const HomePage = () => {
   const objectives = useDataStore((state) => state.objectives);
 
   return (
-    <Grid container spacing={4}>
-      <Grid item xs={12}>
-        <Typography variant="h6">Dailies</Typography>
-      </Grid>
+    <Container maxWidth="md">
+      <Grid container spacing={4}>
+        <Grid item xs={12}>
+          <Typography variant="h6">Dailies</Typography>
+        </Grid>
 
-      <Grid item xs={12}>
-        <Container maxWidth="xs">
-          <Card>
-            <CardContent>
-              <Stack direction="column" spacing={2}>
-                {objectives.map((objective) => {
-                  const completedToday = objective.dailies.find((daily) => daily.date === TODAY()) !== undefined;
-                  return (
-                    <Stack key={objective.uid} direction="row" alignItems="center" justifyContent="space-between">
-                      <Stack direction="column">
-                        <Typography variant="body1">{objective.title}</Typography>
+        <Grid item xs={12}>
+          <Container maxWidth="sm">
+            <Card>
+              <CardContent>
+                <Stack direction="column" spacing={2}>
+                  {objectives.map((objective) => {
+                    const completedToday = objective.dailies.find((daily) => daily.date === TODAY()) !== undefined;
+                    return (
+                      <Stack key={objective.uid} direction="row" alignItems="center" justifyContent="space-between">
+                        <Stack direction="column">
+                          <Typography variant="body1">{objective.title}</Typography>
+                        </Stack>
+                        <Checkbox checked={completedToday} />
                       </Stack>
-                      <Checkbox checked={completedToday} />
-                    </Stack>
-                  );
-                })}
-              </Stack>
-            </CardContent>
-          </Card>
-        </Container>
-      </Grid>
+                    );
+                  })}
+                </Stack>
+              </CardContent>
+            </Card>
+          </Container>
+        </Grid>
 
-      <Grid item xs={12}>
-        <Typography variant="h6">Consistency</Typography>
-      </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h6">Consistency</Typography>
+        </Grid>
 
-      <Grid item xs={12}>
-        <Container maxWidth="md">
+        <Grid item xs={12}>
           <Card>
             <CardContent>
               <Stack direction="row" justifyContent="space-between">
@@ -87,15 +87,13 @@ const HomePage = () => {
               <Chip label="GOAL: Goal title" />
             </CardContent>
           </Card>
-        </Container>
-      </Grid>
+        </Grid>
 
-      <Grid item xs={12}>
-        <Typography variant="h6">Milestones</Typography>
-      </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h6">Milestones</Typography>
+        </Grid>
 
-      <Grid item xs={12}>
-        <Container maxWidth="md">
+        <Grid item xs={12}>
           <Card>
             <CardContent>
               <Stack direction="row" alignItems="center" justifyContent="space-between">
@@ -132,9 +130,9 @@ const HomePage = () => {
               </Stack>
             </CardContent>
           </Card>
-        </Container>
+        </Grid>
       </Grid>
-    </Grid>
+    </Container>
   );
 };
 

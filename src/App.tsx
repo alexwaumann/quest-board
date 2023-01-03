@@ -1,6 +1,5 @@
 import {
   Box,
-  Container,
   CssBaseline,
   ThemeProvider,
 } from '@mui/material';
@@ -23,17 +22,15 @@ const App = () => {
       <CssBaseline enableColorScheme />
       <TopBar />
       <Box sx={{ p: 4 }}>
-        <Container maxWidth="md">
-          <Switch>
-            <Route path="/">
-              <HomePage />
-            </Route>
+        <Switch>
+          <Route path="/">
+            <HomePage />
+          </Route>
 
-            <Route path="/challenges">
-              <ChallengePage />
-            </Route>
-          </Switch>
-        </Container>
+          <Route path="/challenges">
+            <ChallengePage />
+          </Route>
+        </Switch>
       </Box>
     </ThemeProvider>
   );

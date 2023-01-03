@@ -1,5 +1,5 @@
 import {
-  Grid,
+  Container,
   Stack,
   ToggleButton,
   Typography,
@@ -17,8 +17,8 @@ const ChallengePage = () => {
   const [openCreateChallengeDialog, setOpenCreateChallengeDialog] = useState<boolean>(false);
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12}>
+    <Container maxWidth="sm">
+      <Stack direction="column" spacing={2}>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <Typography variant="h5">Active Challenges</Typography>
           <ToggleButton
@@ -29,38 +29,22 @@ const ChallengePage = () => {
             <Add sx={{ width: 28, height: 28 }} />
           </ToggleButton>
         </Stack>
-      </Grid>
 
-      <Grid container item spacing={2} xs={12} md={6}>
-        {challenges.map((challenge, index) => {
-          if(index >= challenges.length / 2) return null;
-          return (
-            <Grid key={challenge.uid} item xs={12}>
+        <Stack direction="column" spacing={2}>
+          {challenges.map((challenge, index) => {
+            return (
               <ChallangeCard
+                key={challenge.uid}
                 challenge={challenge}
                 objectives={objectives.filter((objective) => objective.challengeUid === challenge.uid)}
               />
-            </Grid>
-          );
-        })}
-      </Grid>
-
-      <Grid container item spacing={2} xs={12} md={6}>
-        {challenges.map((challenge, index) => {
-          if(index < challenges.length / 2) return null;
-          return (
-            <Grid key={challenge.uid} item xs={12}>
-              <ChallangeCard
-                challenge={challenge}
-                objectives={objectives.filter((objective) => objective.challengeUid === challenge.uid)}
-              />
-            </Grid>
-          );
-        })}
-      </Grid>
+            );
+          })}
+        </Stack>
+      </Stack>
 
       <CreateChallengeDialog open={openCreateChallengeDialog} closeFn={() => setOpenCreateChallengeDialog(false)} />
-    </Grid>
+    </Container>
   );
 };
 
