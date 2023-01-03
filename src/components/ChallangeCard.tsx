@@ -40,7 +40,13 @@ const ChallengeCard = ({challenge, objectives, openCreateDailyDialogFn, openCrea
 
         {objectives.length > 0 &&
           <>
-            <Typography variant="subtitle1">Dailies</Typography>
+            <Typography variant="h6">Dailies</Typography>
+            <Box sx={{ m: 2 }} />
+            {objectives.map((objective) => {
+              return (
+                <Typography key={objective.uid} variant="body1">{objective.title}</Typography>
+              );
+            })}
             <Box sx={{ m: 2 }} />
           </>
         }
