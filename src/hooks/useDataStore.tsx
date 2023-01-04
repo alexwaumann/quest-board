@@ -111,11 +111,16 @@ export const useDataStore = create<DataStore>((set, get) => ({
 
   completeDaily: (objectiveUid, daily) => {
     const newObjectives = get().objectives.map((objective) => {
+      const index = objective.dailies.findIndex((daily) => daily.date === TODAY());
       const isSelectedObjective = objective.uid === objectiveUid;
       const isToday = daily.date === TODAY();
-      const isNew = objective.dailies.find((daily) => daily.date === TODAY()) === undefined;
+      const isNew = index === -1;
       if(isSelectedObjective && isToday && isNew) {
+        // create new entry
         objective.dailies.push(daily);
+      } else if (isSelectedObjective && isToday) {
+        // overwrite existing entry
+        daily.units > 0 ? objective.dailies.splice(index, 1, daily) : objective.dailies.splice(index, 1);
       }
 
       return objective;
