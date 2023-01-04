@@ -8,13 +8,23 @@ import {
   Typography,
 } from '@mui/material';
 
-import { Objective, TODAY } from '../hooks/useDataStore';
+import { Objective, TODAY, useDataStore } from '../hooks/useDataStore';
 
 interface DailyCardProps {
   objectives: Objective[]
 };
 
 const DailyCard = ({objectives}: DailyCardProps) => {
+  const completeDaily = useDataStore((state) => state.completeDaily);
+
+  const handleInputChanged = (objective: Objective, value: number) => {
+    const daily = {
+      date: TODAY(),
+      units: value,
+    };
+
+    completeDaily(objective.uid, daily);
+  };
 
   return (
     <Card>
@@ -24,7 +34,7 @@ const DailyCard = ({objectives}: DailyCardProps) => {
             const completedToday = objective.dailies.find((daily) => daily.date === TODAY()) !== undefined;
             return (
               <Stack key={objective.uid} direction="row" alignItems="center" spacing={2}>
-                <Checkbox checked={completedToday} />
+                <Checkbox disabled checked={completedToday} />
                 <Typography
                   variant="body1"
                   flexGrow={1}
@@ -32,6 +42,14 @@ const DailyCard = ({objectives}: DailyCardProps) => {
                   {objective.title}
                 </Typography>
                 <TextField
+                  type="number"
+                  onChange={(event) => {
+                    let value = 0;
+                    if(event.target.value) {
+                      value = Math.abs(Number(event.target.value));
+                    }
+                    handleInputChanged(objective, value);
+                  }}
                   InputProps={{
                     endAdornment:
                       <InputAdornment position="end">
