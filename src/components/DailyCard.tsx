@@ -31,7 +31,8 @@ const DailyCard = ({objectives}: DailyCardProps) => {
       <CardContent>
         <Stack direction="column" spacing={2}>
           {objectives.map((objective) => {
-            const completedToday = objective.dailies.find((daily) => daily.date === TODAY()) !== undefined;
+            const today = objective.dailies.find((daily) => daily.date === TODAY());
+            const completedToday = today !== undefined ? today.units >= objective.targetUnits : false;
             return (
               <Stack key={objective.uid} direction="row" alignItems="center" spacing={2}>
                 <Checkbox disabled checked={completedToday} />
@@ -43,6 +44,7 @@ const DailyCard = ({objectives}: DailyCardProps) => {
                 </Typography>
                 <TextField
                   type="number"
+                  value={today ? today.units : ''}
                   onChange={(event) => {
                     let value = 0;
                     if(event.target.value) {
