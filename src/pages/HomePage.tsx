@@ -2,9 +2,7 @@ import {
   Box,
   Card,
   CardContent,
-  Checkbox,
   Chip,
-  CircularProgress,
   Container,
   Grid,
   Stack,
@@ -15,7 +13,8 @@ import {
   Clear,
 } from '@mui/icons-material'
 
-import { useDataStore, TODAY } from '../hooks/useDataStore';
+import { DailyCard } from '../components/components';
+import { useDataStore } from '../hooks/useDataStore';
 
 const HomePage = () => {
   const objectives = useDataStore((state) => state.objectives);
@@ -24,29 +23,11 @@ const HomePage = () => {
     <Container maxWidth="md">
       <Grid container spacing={4}>
         <Grid item xs={12}>
-          <Typography variant="h6">Dailies</Typography>
+          <Typography variant="h6">Daily Challenges</Typography>
         </Grid>
 
         <Grid item xs={12}>
-          <Container maxWidth="sm">
-            <Card>
-              <CardContent>
-                <Stack direction="column" spacing={2}>
-                  {objectives.map((objective) => {
-                    const completedToday = objective.dailies.find((daily) => daily.date === TODAY()) !== undefined;
-                    return (
-                      <Stack key={objective.uid} direction="row" alignItems="center" justifyContent="space-between">
-                        <Stack direction="column">
-                          <Typography variant="body1">{objective.title}</Typography>
-                        </Stack>
-                        <Checkbox checked={completedToday} />
-                      </Stack>
-                    );
-                  })}
-                </Stack>
-              </CardContent>
-            </Card>
-          </Container>
+          <DailyCard objectives={objectives} />
         </Grid>
 
         <Grid item xs={12}>
@@ -85,49 +66,6 @@ const HomePage = () => {
               <Box sx={{ m: 4 }} />
 
               <Chip label="GOAL: Goal title" />
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={12}>
-          <Typography variant="h6">Milestones</Typography>
-        </Grid>
-
-        <Grid item xs={12}>
-          <Card>
-            <CardContent>
-              <Stack direction="row" alignItems="center" justifyContent="space-between">
-                <Stack direction="column">
-                  <Typography variant="h6">Goal title</Typography>
-                  <Typography variant="body2">Goal description</Typography>
-                </Stack>
-                <CircularProgress variant="determinate" value={66} size={32} />
-              </Stack>
-
-              <Box sx={{ m: 4 }} />
-
-              <Stack direction="column" spacing={2}>
-                <Stack direction="row" justifyContent="space-between">
-                  <Stack direction="column">
-                    <Typography variant="h6">Milestone 1</Typography>
-                  </Stack>
-                  <Checkbox checked={true} />
-                </Stack>
-
-                <Stack direction="row" justifyContent="space-between">
-                  <Stack direction="column">
-                    <Typography variant="h6">Milestone 2</Typography>
-                  </Stack>
-                  <Checkbox checked={true} />
-                </Stack>
-
-                <Stack direction="row" justifyContent="space-between">
-                  <Stack direction="column">
-                    <Typography variant="h6">Milestone 2</Typography>
-                  </Stack>
-                  <Checkbox />
-                </Stack>
-              </Stack>
             </CardContent>
           </Card>
         </Grid>
