@@ -29,7 +29,7 @@ export interface Objective {
   challengeUid: string
 };
 
-interface Daily {
+export interface Daily {
   date: number
   units: number
 };
@@ -115,7 +115,7 @@ export const useDataStore = create<DataStore>((set, get) => ({
       const isSelectedObjective = objective.uid === objectiveUid;
       const isToday = daily.date === TODAY();
       const isNew = index === -1;
-      if(isSelectedObjective && isToday && isNew) {
+      if(isSelectedObjective && isToday && isNew && daily.units > 0) {
         // create new entry
         objective.dailies.push(daily);
       } else if (isSelectedObjective && isToday) {
