@@ -46,7 +46,7 @@ const ConsistencyCard = ({objective}: ConsistencyCardProps) => {
   const maxStreak = dailies().reduce((prev, curr) => {
     if(curr.units >= objective.targetUnits) return prev + 1;
 
-    return 0;
+    return prev;
   }, 0);
 
   const chartData = (): any[] => {
