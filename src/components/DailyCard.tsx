@@ -2,11 +2,14 @@ import {
   Card,
   CardContent,
   Checkbox,
+  IconButton,
   InputAdornment,
   Stack,
   TextField,
   Typography,
 } from '@mui/material';
+import { ChevronLeft, ChevronRight } from '@mui/icons-material';
+import { useState } from 'react';
 
 import { Objective, TODAY, useDataStore } from '../hooks/useDataStore';
 
@@ -16,10 +19,19 @@ interface DailyCardProps {
 
 const DailyCard = ({objectives}: DailyCardProps) => {
   const completeDaily = useDataStore((state) => state.completeDaily);
+  const [timestamp, setTimestamp] = useState<number>(TODAY());
+
+  const handlePreviousDate = () => {
+    setTimestamp((oldTimestamp) => oldTimestamp - 86400000);
+  };
+
+  const handleNextDate = () => {
+    setTimestamp((oldTimestamp) => oldTimestamp + 86400000);
+  };
 
   const handleInputChanged = (objective: Objective, value: number) => {
     const daily = {
-      date: TODAY(),
+      date: timestamp,
       units: value,
     };
 
@@ -30,8 +42,19 @@ const DailyCard = ({objectives}: DailyCardProps) => {
     <Card>
       <CardContent>
         <Stack direction="column" spacing={2}>
-          {objectives.map((objective) => {
-            const today = objective.dailies.find((daily) => daily.date === TODAY());
+          <Stack direction="row" alignItems="center" justifyContent="space-between">
+            <Typography variant="h6">{(new Date(timestamp)).toDateString()}</Typography>
+            <div>
+              <IconButton onClick={() => handlePreviousDate()}>
+                <ChevronLeft />
+              </IconButton>
+              <IconButton disabled={timestamp >= TODAY()} onClick={() => handleNextDate()}>
+                <ChevronRight />
+              </IconButton>
+            </div>
+          </Stack>
+          {objectives.filter((objective) => objective.startDate <= timestamp).map((objective) => {
+            const today = objective.dailies.find((daily) => daily.date === timestamp);
             const completedToday = today !== undefined ? today.units >= objective.targetUnits : false;
             return (
               <Stack key={objective.uid} direction="row" alignItems="center" spacing={2}>
