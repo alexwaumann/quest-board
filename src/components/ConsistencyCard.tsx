@@ -76,16 +76,14 @@ const ConsistencyCard = ({objective}: ConsistencyCardProps) => {
             <Switch size="small" onChange={(event, checked) => setShowChart(checked)} />
           </Stack>
         </Stack>
-
         <Box sx={{ m: 4 }} />
 
         {dailies().map((daily) => {
           return daily.units >= objective.targetUnits ? <Check key={daily.date} color="success" /> : <Clear key={daily.date} color="error" />;
         })}
-
         <Box sx={{ m: 4 }} />
 
-        <Card variant="outlined" elevation={0} sx={{ display: showChart ? 'block' : 'none' }}>
+        {/*<Card variant="outlined" elevation={0} sx={{ display: showChart ? 'block' : 'none' }}>
           <Chart
             options={options}
             lineSeries={chartData()}
@@ -94,8 +92,7 @@ const ConsistencyCard = ({objective}: ConsistencyCardProps) => {
             autoWidth
           />
         </Card>
-
-        <Box sx={{ m: 4 }} />
+        <Box sx={{ m: 4 }} />*/}
 
         <Stack direction="row" spacing={1}>
           <Chip label={challenge?.title} />
