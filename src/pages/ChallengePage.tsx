@@ -29,13 +29,14 @@ const ChallengePage = () => {
     <Container maxWidth="sm">
       <Stack direction="column" spacing={2}>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <Typography variant="h5">Active Challenges</Typography>
+          <Typography variant="h5" sx={{ display: { xs: 'none', md: 'inherit' } }}>Active Challenges</Typography>
+          <Typography variant="h6" sx={{ display: { md: 'none' } }}>Active Challenges</Typography>
           <ToggleButton
             value="addChallenge"
             selected={openCreateChallengeDialog}
             onClick={() => setOpenCreateChallengeDialog(true)}
           >
-            <Add sx={{ width: 28, height: 28 }} />
+            <Add sx={{ width: {xs: 16, md: 28}, height: {xs: 16, md: 28} }} />
           </ToggleButton>
         </Stack>
 

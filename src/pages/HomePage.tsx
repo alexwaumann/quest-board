@@ -13,9 +13,10 @@ const HomePage = () => {
 
   return (
     <Container maxWidth="md">
-      <Grid container spacing={4}>
+      <Grid container spacing={{ xs: 2, md: 4 }}>
         <Grid item xs={12}>
-          <Typography variant="h6">Daily Challenges</Typography>
+          <Typography variant="h5" sx={{ display: { xs: 'none', md: 'inherit' } }}>Daily Challenges</Typography>
+          <Typography variant="h6" sx={{ display: { md: 'none' } }}>Daily Challenges</Typography>
         </Grid>
 
         <Grid item xs={12}>
@@ -23,7 +24,8 @@ const HomePage = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <Typography variant="h6">Consistency</Typography>
+          <Typography variant="h5" sx={{ display: { xs: 'none', md: 'inherit' } }}>Consistency</Typography>
+          <Typography variant="h6" sx={{ display: { md: 'none' } }}>Consistency</Typography>
         </Grid>
 
         <Grid item xs={12}>
