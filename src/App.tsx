@@ -6,7 +6,7 @@ import {
 import { createTheme } from '@mui/material/styles';
 import { Route, Switch } from 'wouter';
 
-import { TopBar } from './components/components';
+import { BottomBar, TopBar } from './components/components';
 import { HomePage, ChallengePage } from './pages/pages';
 
 const darkTheme = createTheme({
@@ -21,7 +21,7 @@ const App = () => {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline enableColorScheme />
       <TopBar />
-      <Box sx={{ p: 4 }}>
+      <Box sx={{ p: {sm: 1, md: 2} }}>
         <Switch>
           <Route path="/">
             <HomePage />
@@ -32,6 +32,7 @@ const App = () => {
           </Route>
         </Switch>
       </Box>
+      <BottomBar />
     </ThemeProvider>
   );
 };

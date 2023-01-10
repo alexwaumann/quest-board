@@ -26,13 +26,14 @@ const TopBar = () => {
         <Stack direction="row" alignItems="center" justifyContent="space-between" flexGrow={1}>
           <Stack direction="row" alignItems="center" spacing={3}>
             <Stadium color="info" />
-            <Typography variant="h6">The Colosseum</Typography>
+            <Typography variant="h6">Colosseum</Typography>
           </Stack>
           <ToggleButtonGroup
             value={route}
             exclusive
             size="small"
             onChange={handleNavButtonClicked}
+            sx={{ display: { xs: 'none', sm: 'block' } }}
           >
             <ToggleButton value="/" sx={{ p: 1, pl: 2, pr: 2 }}>Arena</ToggleButton>
             <ToggleButton value="/challenges" sx={{ p: 1, pl: 2, pr: 2 }}>Challenges</ToggleButton>
