@@ -4,6 +4,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
+import { Masonry } from '@mui/lab';
 
 import { ConsistencyCard, DailyCard } from '../components/components';
 import { useDataStore } from '../hooks/useDataStore';
@@ -29,13 +30,13 @@ const HomePage = () => {
         </Grid>
 
         <Grid item xs={12}>
-          <Stack direction="column" spacing={2}>
+          <Masonry columns={{ xs: 1, md: 2 }} spacing={2}>
             {objectives.map((objective) => {
               return (
                 <ConsistencyCard key={objective.uid} objective={objective} />
               );
             })}
-          </Stack>
+          </Masonry>
         </Grid>
       </Grid>
     </Container>

@@ -5,6 +5,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Add } from '@mui/icons-material';
+import { Masonry } from '@mui/lab';
 import { useState } from 'react';
 
 import { CreateChallengeDialog, CreateDailyDialog, ChallangeCard } from '../components/components';
@@ -26,7 +27,7 @@ const ChallengePage = () => {
   });
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="lg">
       <Stack direction="column" spacing={2}>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <Typography variant="h5" sx={{ display: { xs: 'none', md: 'inherit' } }}>Active Challenges</Typography>
@@ -40,7 +41,7 @@ const ChallengePage = () => {
           </ToggleButton>
         </Stack>
 
-        <Stack direction="column" spacing={2}>
+        <Masonry columns={{ xs: 1, md: 2, lg: 3 }} spacing={2}>
           {challenges.map((challenge, index) => {
             return (
               <ChallangeCard
@@ -58,7 +59,7 @@ const ChallengePage = () => {
               />
             );
           })}
-        </Stack>
+        </Masonry>
       </Stack>
 
       <CreateChallengeDialog open={openCreateChallengeDialog} closeFn={() => setOpenCreateChallengeDialog(false)} />
