@@ -3,11 +3,12 @@ import {
   Card,
   CardContent,
   Chip,
+  IconButton,
   Stack,
   Switch,
   Typography,
 } from '@mui/material';
-import { Check, Clear } from '@mui/icons-material'
+import { Check, Clear, MoreHoriz } from '@mui/icons-material'
 import Chart from '@qognicafinance/react-lightweight-charts';
 
 import { Daily, Objective, TODAY, useDataStore } from '../hooks/useDataStore';
@@ -71,10 +72,9 @@ const ConsistencyCard = ({objective}: ConsistencyCardProps) => {
       <CardContent>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <Typography variant="h6">{objective.title}</Typography>
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <Typography variant="caption">Show Chart</Typography>
-            <Switch size="small" onChange={(event, checked) => setShowChart(checked)} />
-          </Stack>
+          <IconButton>
+            <MoreHoriz />
+          </IconButton>
         </Stack>
         <Box sx={{ m: 4 }} />
 
