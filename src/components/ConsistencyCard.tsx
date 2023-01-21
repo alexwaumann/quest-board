@@ -79,7 +79,9 @@ const ConsistencyCard = ({objective}: ConsistencyCardProps) => {
         <Box sx={{ m: 4 }} />
 
         {dailies().map((daily) => {
-          return daily.units >= objective.targetUnits ? <Check key={daily.date} color="success" /> : <Clear key={daily.date} color="error" />;
+          const diff = objective.targetUnits - daily.units;
+          const color = diff <= 0 ? 'success' : 'warning'
+          return daily.units > 0 ? <Check key={daily.date} color={color} /> : <Clear key={daily.date} color="error" />;
         })}
         <Box sx={{ m: 4 }} />
 
