@@ -3,13 +3,13 @@ import {
   Card,
   CardContent,
   Chip,
+  Grid,
   IconButton,
   Stack,
-  Switch,
   Typography,
 } from '@mui/material';
-import { Check, Clear, MoreHoriz } from '@mui/icons-material'
-import Chart from '@qognicafinance/react-lightweight-charts';
+import { MoreHoriz, Star, StarOutline } from '@mui/icons-material'
+// import Chart from '@qognicafinance/react-lightweight-charts';
 
 import { Daily, Objective, TODAY, useDataStore } from '../hooks/useDataStore';
 import {useState} from 'react';
@@ -78,11 +78,23 @@ const ConsistencyCard = ({objective}: ConsistencyCardProps) => {
         </Stack>
         <Box sx={{ m: 4 }} />
 
+        <Grid container spacing={0.25}>
         {dailies().map((daily) => {
-          const diff = objective.targetUnits - daily.units;
-          const color = diff <= 0 ? 'success' : 'warning'
-          return daily.units > 0 ? <Check key={daily.date} color={color} /> : <Clear key={daily.date} color="error" />;
+          let icon;
+          if(daily.units <= 0) {
+            icon = <StarOutline key={daily.date} color="error" />;
+          } else if(objective.targetUnits - daily.units <= 0) {
+            icon = <Star key={daily.date} color="success" />;
+          } else {
+            icon = <StarOutline key={daily.date} color="success" />;
+          }
+          return (
+            <Grid key={daily.date} item>
+              {icon}
+            </Grid>
+          );
         })}
+        </Grid>
         <Box sx={{ m: 4 }} />
 
         {/*<Card variant="outlined" elevation={0} sx={{ display: showChart ? 'block' : 'none' }}>
