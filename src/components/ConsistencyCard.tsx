@@ -5,6 +5,8 @@ import {
   Chip,
   Grid,
   IconButton,
+  Menu,
+  MenuItem,
   Stack,
   Typography,
 } from '@mui/material';
@@ -22,6 +24,9 @@ const ConsistencyCard = ({objective}: ConsistencyCardProps) => {
   const challenge = useDataStore((state) => state.challenges).find((challenge) => objective.challengeUid === challenge.uid);
 
   const [showChart, setShowChart] = useState(false);
+  const [menuAnchorElement, setMenuAnchorElement] = useState<null | HTMLElement>(null);
+
+  const menuOpen = Boolean(menuAnchorElement);
 
   const dailies = () : Daily[] => {
     const allDays = [];
@@ -67,14 +72,31 @@ const ConsistencyCard = ({objective}: ConsistencyCardProps) => {
     return [{data: data}];
   };
 
+  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+    setMenuAnchorElement(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setMenuAnchorElement(null);
+  };
+
   return (
     <Card>
       <CardContent>
         <Stack direction="row" alignItems="center" justifyContent="space-between">
           <Typography variant="h6">{objective.title}</Typography>
-          <IconButton>
+          <IconButton onClick={handleMenuClick}>
             <MoreHoriz />
           </IconButton>
+          <Menu
+            open={menuOpen}
+            anchorEl={menuAnchorElement}
+            onClose={handleMenuClose}
+          >
+            <MenuItem>Edit</MenuItem>
+            <MenuItem disabled>Delete</MenuItem>
+            <MenuItem disabled>Show Chart</MenuItem>
+          </Menu>
         </Stack>
         <Box sx={{ m: 4 }} />
 
