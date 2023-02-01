@@ -3,17 +3,19 @@ import {
   CssBaseline,
   ThemeProvider,
 } from '@mui/material';
-import { createTheme } from '@mui/material/styles';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 import { Route, Switch } from 'wouter';
 
 import { BottomBar, TopBar } from './components/components';
 import { HomePage, ChallengePage } from './pages/pages';
 
-const darkTheme = createTheme({
+let darkTheme = createTheme({
   palette: {
     mode: 'dark',
   },
 });
+
+darkTheme = responsiveFontSizes(darkTheme);
 
 const App = () => {
 
