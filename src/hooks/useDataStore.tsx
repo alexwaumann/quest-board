@@ -50,6 +50,8 @@ interface DataStore {
 
   completeChallenge: (challengeUid: string) => void
   completeObjective: (objectiveUid: string) => void
+
+  editObjective: (objectiveUid: string, newObjective: Objective) => void
 };
 
 export const useDataStore = create<DataStore>((set, get) => ({
@@ -137,6 +139,21 @@ export const useDataStore = create<DataStore>((set, get) => ({
 
   completeObjective: (objectiveUid) => {
     console.log('TODO: implement DataStore.completeObjective');
+  },
+
+  editObjective: (objectiveUid, newObjective) => {
+    if(objectiveUid !== newObjective.uid) return;
+
+    const newObjectives = get().objectives.map((objective) => {
+      if(objectiveUid === objective.uid) {
+        objective = newObjective;
+      }
+
+      return objective;
+    });
+
+    set({ objectives: newObjectives });
+    setLocalStorage('objectives', newObjectives);
   },
 
 }));
