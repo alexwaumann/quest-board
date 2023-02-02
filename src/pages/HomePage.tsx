@@ -1,16 +1,34 @@
 import {
   Container,
   Grid,
-  Stack,
   Typography,
 } from '@mui/material';
 import { Masonry } from '@mui/lab';
 
-import { ConsistencyCard, DailyCard } from '../components/components';
-import { useDataStore } from '../hooks/useDataStore';
+import { ConsistencyCard, DailyCard, EditObjectiveDialog } from '../components/components';
+import { Objective, useDataStore } from '../hooks/useDataStore';
+import {useState} from 'react';
 
 const HomePage = () => {
   const objectives = useDataStore((state) => state.objectives);
+
+  const [openEditObjectiveDialog, setOpenEditObjectiveDialog] = useState<boolean>(false);
+  const [selectedObjective, setSelectedObjective] = useState<Objective>({
+    uid: '',
+    title: '',
+    action: '',
+    unit: '',
+    targetUnits: 0,
+    active: false,
+    startDate: 0,
+    dailies: [],
+    challengeUid: '',
+  });
+
+  const handleOnEditObjective = (objective: Objective) => {
+    setSelectedObjective(objective);
+    setOpenEditObjectiveDialog(true);
+  }
 
   return (
     <Container maxWidth="md">
@@ -33,12 +51,18 @@ const HomePage = () => {
           <Masonry columns={{ xs: 1, md: 2 }} spacing={2}>
             {objectives.map((objective) => {
               return (
-                <ConsistencyCard key={objective.uid} objective={objective} />
+                <ConsistencyCard key={objective.uid} objective={objective} onEditObjective={handleOnEditObjective} />
               );
             })}
           </Masonry>
         </Grid>
       </Grid>
+
+      <EditObjectiveDialog
+        open={openEditObjectiveDialog}
+        objective={selectedObjective}
+        closeFn={() => setOpenEditObjectiveDialog(false)}
+      />
     </Container>
   );
 };

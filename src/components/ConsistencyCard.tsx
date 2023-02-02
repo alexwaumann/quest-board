@@ -18,9 +18,10 @@ import {useState} from 'react';
 
 interface ConsistencyCardProps {
   objective: Objective
+  onEditObjective: (objective: Objective) => void
 };
 
-const ConsistencyCard = ({objective}: ConsistencyCardProps) => {
+const ConsistencyCard = ({objective, onEditObjective}: ConsistencyCardProps) => {
   const challenge = useDataStore((state) => state.challenges).find((challenge) => objective.challengeUid === challenge.uid);
 
   const [showChart, setShowChart] = useState(false);
@@ -80,6 +81,11 @@ const ConsistencyCard = ({objective}: ConsistencyCardProps) => {
     setMenuAnchorElement(null);
   };
 
+  const onMenuEdit = () => {
+    handleMenuClose();
+    onEditObjective(objective);
+  };
+
   return (
     <Card>
       <CardContent>
@@ -93,7 +99,7 @@ const ConsistencyCard = ({objective}: ConsistencyCardProps) => {
             anchorEl={menuAnchorElement}
             onClose={handleMenuClose}
           >
-            <MenuItem>Edit</MenuItem>
+            <MenuItem onClick={onMenuEdit}>Edit</MenuItem>
             <MenuItem disabled>Delete</MenuItem>
             <MenuItem disabled>Show Chart</MenuItem>
           </Menu>
